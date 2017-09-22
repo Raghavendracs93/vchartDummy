@@ -1,0 +1,30 @@
+.bounce-enter-active {
+  animation: bounce-in 0.3s;
+}
+/*.bounce-leave-active {
+  animation: bounce-out 0.3s;
+}*/
+
+.transitionPercentage(@max, @i: 0) when (@i =< 100){
+  @selector : ~"@{i}%";
+  @{selector}{
+    transform: translateX((((100-@i)/100)*@max)*1px);
+  }
+  .transitionPercentage(@max, (@i + 5));
+}
+
+@keyframes bounce-in {
+  .transitionPercentage(500);
+}
+
+@keyframes bounce-out {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-250px);
+  }
+  100% {
+    transform: translateX(-500px);
+  }
+}

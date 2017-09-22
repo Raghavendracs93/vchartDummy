@@ -1,0 +1,24 @@
+.generate-paddings(50);
+
+.generate-paddings(@max, @i: 0) when (@i =< @max){
+  .p-@{i}{
+    padding: @i*1px;
+  }
+  .p-t-@{i}{
+    padding-top: @i*1px;
+  }
+  .p-b-@{i}{
+    padding-bottom: @i*1px;
+  }
+  .p-l-@{i}{
+    padding-left: @i*1px;
+  }
+  .p-r-@{i}{
+    padding-right: @i*1px;
+  }
+  .generate-paddings(@max, (@i+5));
+}
+
+.c-p-t-48{
+  padding-top: 48px;
+}

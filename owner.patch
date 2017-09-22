@@ -1,0 +1,84 @@
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- package.json	(revision 8fef6c8ed57a262d3ec99d0671c5132dfddb6e71)
++++ package.json	(revision )
+@@ -36,7 +36,7 @@
+     "vue-cookie": "*",
+     "vue-lazyload": "*",
+     "eslint": "*",
+-    "vuetify": "*",
++    "vuetify": "0.14.4",
+     "babel-loader": "*",
+     "babel-core": "*",
+     "babel-preset-es2015": "*",
+Index: dev/owner/components/login/login_view.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- dev/owner/components/login/login_view.html	(revision 8fef6c8ed57a262d3ec99d0671c5132dfddb6e71)
++++ dev/owner/components/login/login_view.html	(revision )
+@@ -47,8 +47,8 @@
+ 
+     <v-snackbar
+             :timeout="timeout"
+-            :top="top"
+-            :right="right"
++            :top="y === 'top'"
++            :right="x === 'right'"
+             success
+             v-model="successSnackbar"
+     >
+@@ -60,7 +60,7 @@
+             :timeout="timeout"
+             :top="top"
+             :right="right"
+-            success
++            error
+             v-model="errorSnackbar"
+     >
+         Owner Created UnSuccessful!
+Index: dev/owner/app/api/api_configs/api_configs_new/login.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- dev/owner/app/api/api_configs/api_configs_new/login.js	(revision 8fef6c8ed57a262d3ec99d0671c5132dfddb6e71)
++++ dev/owner/app/api/api_configs/api_configs_new/login.js	(revision )
+@@ -12,7 +12,7 @@
+             change_state : true,
+             navigation   : true,
+             callback     : true,
+-            notification : true,
++            notification : false,
+             store        : true
+ 
+         },
+@@ -20,7 +20,7 @@
+             change_state : true,
+             navigation   : false,
+             callback     : true,
+-            notification : true,
++            notification : false,
+             store        : false
+         },
+ 
+Index: dev/owner/components/login/login_view.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- dev/owner/components/login/login_view.js	(revision 8fef6c8ed57a262d3ec99d0671c5132dfddb6e71)
++++ dev/owner/components/login/login_view.js	(revision )
+@@ -19,6 +19,8 @@
+                 passwordToggle : true,
+ 
+                 timeout: 3000,
++                y: 'top',
++                x: null,
+                 top: true,
+                 right: true,
+                 successSnackbar: false,

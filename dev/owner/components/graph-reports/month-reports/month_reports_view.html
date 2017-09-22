@@ -1,0 +1,85 @@
+<div>
+    <v-container fluid class="pa-3">
+        <v-layout row wrap>
+            <v-flex xs12>
+                <template>
+                    <h3 class="text-center blue--text mb-0">Month Reports</h3>
+                    <v-container class="pa-1">
+                        <v-card>
+                            <v-card-text>
+                                <v-layout row wrap>
+                                    <v-flex xs12 sm6>
+                                        <v-dialog
+                                                persistent
+                                                lazy
+                                                full-width
+                                        >
+                                            <v-text-field
+                                                    slot="activator"
+                                                    label="Select Month"
+                                                    v-model="monthQuery"
+                                                    prepend-icon="event"
+                                                    readonly
+                                            ></v-text-field>
+                                            <v-date-picker v-model="monthQuery" no-title scrollable actions ref="datePickerRef">
+                                                <template scope="{ save, cancel }">
+                                                    <v-card-actions>
+                                                        <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                                        <v-btn flat primary @click.native="save()">Save</v-btn>
+                                                    </v-card-actions>
+                                                </template>
+                                            </v-date-picker>
+                                        </v-dialog>
+                                    </v-flex>
+
+                                    <v-flex xs12 sm6>
+                                        <v-subheader class="grey--text body-1 pl-0">Select Guard</v-subheader>
+                                        <v-select
+                                                v-bind:items="guardList"
+                                                item-text="userData.name"
+                                                item-value="userId"
+                                                v-model="guards"
+                                                single-line
+                                                auto
+                                                persistent-hint
+                                                return-object
+                                                max-height="400"
+                                                @input="selectedGuard($event)" />
+                                    </v-flex>
+                                </v-layout>
+                            </v-card-text>
+                        </v-card>
+                    </v-container>
+                </template>
+            </v-flex>
+        </v-layout>
+
+        <v-layout row wrap>
+            <v-flex xs12 sm10 offset-sm1>
+
+                <div v-if="guardSelected">
+                    <p class="black--text title pt-3 mb-0">Punch card</p>
+                    <v-card>
+                        <template>
+                            <div class="small">
+                                <doughnut-Chart :chart-data="datacollection" :options="options" :width="500" :height="270"></doughnut-Chart>
+                            </div>
+                        </template>
+                    </v-card>
+                </div>
+
+                <v-card v-else-if="dataEmpty">
+                    <v-card-title class="text-xs-center">
+                        <h3 class="red-text">No data available for Selected Guard. Please select another guard</h3>
+                    </v-card-title>
+                </v-card>
+
+                <v-card v-else>
+                    <v-card-title class="text-xs-center">
+                        Please select Guard above.
+                    </v-card-title>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</div>

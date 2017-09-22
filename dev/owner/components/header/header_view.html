@@ -1,0 +1,9 @@
+<div>
+    <v-navigation-drawer clipped light  v-show="appState.state.appInState"  v-model="drawer" temporary class="drawer-zindex drawer-clipped">
+    </v-navigation-drawer>
+
+    <v-toolbar v-if="appState.state.appInState" fixed class="indigo darken-4" dark>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer" class="white--text" ></v-toolbar-side-icon>
+        <v-toolbar-title class="white--text">Owner</v-toolbar-title>
+    </v-toolbar>
+</div>

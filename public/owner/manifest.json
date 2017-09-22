@@ -1,0 +1,11 @@
+{
+  "name": "Sectrack Owner",
+  "short_name": "Sectrack Owner",
+  "start_url": "/sectrackClientOwner/index.html",
+  "display": "standalone",
+  "background_color": "#4caf50",
+  "theme_color": "#4caf50",
+
+  "gcm_sender_id": "103953800507"
+
+}

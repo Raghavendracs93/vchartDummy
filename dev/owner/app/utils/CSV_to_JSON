@@ -1,0 +1,60 @@
+(function () {
+
+
+  let CSV2JSON = function(){};
+
+  CSV2JSON.prototype = {
+
+    csvObj: function (csv) {
+      let array = this.CSVToArray(csv);
+      let objArray = [];
+      for (let i = 1; i < array.length; i++) {
+        objArray[i - 1] = {};
+        for (let k = 0; k < array[0].length && k < array[i].length; k++) {
+          let key = array[0][k];
+          objArray[i - 1][key] = array[i][k];
+        }
+      }
+      objArray.pop();
+      return objArray;
+    },
+    CSVToArray: function (strData, strDelimiter) {
+      strDelimiter = (strDelimiter || ",");
+      let objPattern = new RegExp(
+          (
+              "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+
+              "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+
+              "([^\"\\" + strDelimiter + "\\r\\n]*))"
+          ),
+          "gi"
+      );
+      let arrData = [[]];
+      let arrMatches = null;
+      while (arrMatches = objPattern.exec(strData)) {
+        let strMatchedDelimiter = arrMatches[1];
+        if (
+            strMatchedDelimiter.length &&
+            strMatchedDelimiter !== strDelimiter
+        ) {
+          arrData.push([]);
+        }
+        let strMatchedValue;
+        if (arrMatches[2]) {
+          strMatchedValue = arrMatches[2].replace(
+              new RegExp("\"\"", "g"),
+              "\""
+          );
+        } else {
+          strMatchedValue = arrMatches[3];
+        }
+        arrData[arrData.length - 1].push(strMatchedValue);
+      }
+      return ( arrData );
+    }
+  }
+  module.exports = function(){
+    return (new CSV2JSON());
+  }();
+})();

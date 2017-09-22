@@ -1,0 +1,8 @@
+.generate-font-sizes(60);
+
+.generate-font-sizes(@max, @i: 0) when (@i =< @max){
+  .f-@{i}{
+    font-size: @i*1px;
+  }
+  .generate-font-sizes(@max, (@i+1));
+}

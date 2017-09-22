@@ -1,0 +1,22 @@
+<div id="app-component" ref="appComponent">
+    <v-app>
+        <header-component ref="headerComponentRef"></header-component>
+        <!--<router-view class="view one" name="headerView"></router-view>-->
+        <main class="with p-t-64">
+            <!-- <sidebar-component ref="sidebarComponentRef"></sidebar-component>-->
+            <!--<router-view class="view two" name="sidebarView"></router-view>-->
+            <div>
+                <router-view ref="currentContentComponentRef" class="view three"></router-view>
+            </div>
+        </main>
+        <v-snackbar
+                :timeout="timeout"
+                :top="top"
+                :right="right"
+                v-model="snackbar"
+        >
+            {{ message }}
+            <v-btn flat :class="closeBtColor" @click.native="snackbar = false">Close</v-btn>
+        </v-snackbar>
+    </v-app>
+</div>
