@@ -1,6 +1,5 @@
 import DoughnutChart from './DoughnutChart'
 
-const listGuardConfig = require("../../../app/api/api_configs/api_configs_new/list_guard");
 const guardLogConfig = require("../../../app/api/api_configs/api_configs_new/guard_log");
 let guardStorage = require("../../../app/storage_manager/guard_storage");
 const responseHandler = require("../../../app/api/responseHandler");
@@ -71,47 +70,14 @@ export default {
             },
         }
     },
-    watch : {
-        monthQuery : function () {
-            if(this.guardId != ""){
-                this.guardLogFunction();
-                this.$refs.datePickerRef.save();
-            }
-
-        }
-    },
     created : function () {
-        this.getUserId();
-        this.setDay();
+        this.guardLogFunction();
     },
     methods: {
-        setDay : function () {
-            this.monthQuery = Moment().startOf('month').format("YYYY-MM-DD");
-        },
-        getUserId : function () {
-            let storage = require("../../../app/storage_manager/login_storage");
-            let loginDetail = storage.state.loginCred;
-            this.ownerId=loginDetail.userId;
-            this.getGuardList(this.ownerId);
-        },
-        getGuardList:function (ownerId) {
-            listGuardConfig.data.ownerId = ownerId;
-            listGuardConfig.successCallback = this.updateGuardList.bind(this);
-            let handler = new responseHandler(listGuardConfig);
-            handler.execute();
-        },
-        updateGuardList : function () {
-            this.guardList = guardStorage.state.guardList;
-        },
-        selectedGuard : function (event) {
-            this.selectedGuardData = event;
-            this.guardId = event.userId;
-            this.guardLogFunction();
-        },
         guardLogFunction : function () {
-            guardLogConfig.data.userId = this.guardId;
-            guardLogConfig.data.fromDateQuery = Moment(this.monthQuery).startOf('month').format('L');
-            guardLogConfig.data.toDateQuery = Moment(this.monthQuery).endOf('month').format('L');
+            guardLogConfig.data.userId = document.getElementById("root").getAttribute("data-userId");
+            guardLogConfig.data.fromDateQuery =document.getElementById("root").getAttribute("data-fromQuery");
+            guardLogConfig.data.toDateQuery = document.getElementById("root").getAttribute("data-toQuery");
             guardLogConfig.successCallback = this.guardLogSuccessFunc.bind(this);
             guardLogConfig.errorCallback = this.guardLogErrorFunc.bind(this);
 

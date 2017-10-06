@@ -3,17 +3,12 @@ const { reactiveProp } = mixins;
 
 export default Bar.extend({
     mixins: [reactiveProp],
-    props: ['options'],
+    props: ['datacollection', 'options'],
     mounted () {
         // this.chartData is created in the mixin.
         // If you want to pass options please create a local options object
+        console.log("Inside Mount");
         this.renderChart(this.chartData, this.options)
+        console.log("Outside Mount");
     },
-    watch: {
-        chartData: function() {
-            this._chart.destroy();
-            //this.renderChart(this.data, this.options);
-            this.renderChart(this.chartData, this.options)
-        }
-    }
 })
